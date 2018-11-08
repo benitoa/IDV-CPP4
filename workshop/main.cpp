@@ -15,6 +15,7 @@
 #include "Menu.h"
 #include "Game.h"
 #include "EndMenu.h"
+#include "Options.h"
 
 int main() {
     srand(time(0));

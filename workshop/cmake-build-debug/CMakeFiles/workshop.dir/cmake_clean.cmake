@@ -11,6 +11,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/workshop.dir/Apple.cpp.o"
   "CMakeFiles/workshop.dir/Game.cpp.o"
   "CMakeFiles/workshop.dir/EndMenu.cpp.o"
+  "CMakeFiles/workshop.dir/Options.cpp.o"
   "workshop.pdb"
   "workshop"
 )

@@ -4,6 +4,7 @@
 
 #include "Game.h"
 #include "Apple.h"
+#include "Options.h"
 #include "TimeManager.h"
 #include <SFML/Graphics.hpp>
 #include "unistd.h"
@@ -31,8 +32,7 @@ int Game::loopGame (sf::RenderWindow &window, sf::Event event, sf::Font font, Sc
     bool up = false;
     bool down = false;
     int compteur = 0;
-
-
+    Options *music = new Options();
     while (window.isOpen()) {
         Apple apple;
         while (start) {
@@ -117,6 +117,7 @@ int Game::loopGame (sf::RenderWindow &window, sf::Event event, sf::Font font, Sc
             if (snakePosition.x < (50 * 15) && snakePosition.x > -1 &&
                 snakePosition.y > -1 && snakePosition.y < (50 * 15) && !body_collision) {
             } else {
+                start = false;
                 std::cout << "FDP DE ELSE" << std::endl;
                 collision = true;
                 window.clear(sf::Color::Black);
@@ -127,18 +128,16 @@ int Game::loopGame (sf::RenderWindow &window, sf::Event event, sf::Font font, Sc
                                        window.getSize().y / 2 -
                                        -endMessage.getGlobalBounds().height /
                                        2);
+                music->PlaySound("sounds/gameover.ogg");
                 window.draw(endMessage);
                 window.display();
-
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-                    return nbParty + 1;
-                }
             }
 
             // Si le Snake passe sur une Apple
             if (snake.CollisionScreen(snakePosition.x, snakePosition.y, 50, 50,
                                       apple.GetPosition().x, apple.GetPosition().y, 50, 50)) {
                 std::cout << "NTM LA PUTE" << std::endl;
+                music->PlaySound("sounds/apple.ogg");
                 isAppleNeeded = true; // On redemande une nouvelle Apple
                 snake.AddCase();
             }
@@ -177,6 +176,9 @@ int Game::loopGame (sf::RenderWindow &window, sf::Event event, sf::Font font, Sc
 
                 window.display();
             }
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            return nbParty + 1;
         }
     }
 }
